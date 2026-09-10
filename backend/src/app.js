@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const morgan = require('morgan');
 const config = require('./config');
 const { notFound, errorHandler } = require('./middleware/error');
+const { apiLimiter } = require('./middleware/rateLimit');
+const { health, ready } = require('./controllers/healthController');
 
 const authRoutes = require('./routes/authRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
@@ -19,6 +22,8 @@ const aiRoutes = require('./routes/aiRoutes');
 
 const app = express();
 
+app.set('trust proxy', 1);
+app.use(helmet());
 app.use(
   cors({
     origin: config.corsOrigin,
@@ -28,33 +33,10 @@ app.use(
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
+app.use('/api', apiLimiter);
 
-app.get('/api/health', (_req, res) => {
-  res.json({
-    success: true,
-    message: 'ReGive API is running',
-    data: {
-      service: 'regive-backend',
-      sprint: 3,
-      stack: 'Node.js + Express + MongoDB',
-      aiProvider: config.aiProvider || 'mock',
-      modules: [
-        'auth',
-        'campaigns',
-        'donations',
-        'volunteers',
-        'support-requests',
-        'notifications',
-        'products',
-        'inventory',
-        'orders',
-        'payments',
-        'reports',
-        'ai',
-      ],
-    },
-  });
-});
+app.get('/api/health', health);
+app.get('/api/ready', ready);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/campaigns', campaignRoutes);

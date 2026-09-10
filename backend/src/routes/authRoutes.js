@@ -1,13 +1,14 @@
 const express = require('express');
 const { validate } = require('../middleware/validate');
 const { authenticate, authorize } = require('../middleware/auth');
+const { authLimiter } = require('../middleware/rateLimit');
 const { ROLES } = require('../constants/enums');
 const ctrl = require('../controllers/authController');
 
 const router = express.Router();
 
-router.post('/register', ctrl.registerValidators, validate, ctrl.register);
-router.post('/login', ctrl.loginValidators, validate, ctrl.login);
+router.post('/register', authLimiter, ctrl.registerValidators, validate, ctrl.register);
+router.post('/login', authLimiter, ctrl.loginValidators, validate, ctrl.login);
 router.get('/me', authenticate, ctrl.me);
 router.patch(
   '/me',

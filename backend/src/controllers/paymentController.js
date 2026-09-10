@@ -4,6 +4,15 @@ const { PAYMENT_PURPOSE, ROLES } = require('../constants/enums');
 const { ApiError, success, asyncHandler } = require('../utils/api');
 const { createPayment, confirmSandboxPayment } = require('../services/paymentService');
 
+function sanitizePayment(payment, { includeSandboxToken = false } = {}) {
+  const obj = payment.toObject ? payment.toObject() : { ...payment };
+  if (!includeSandboxToken) {
+    delete obj.sandboxToken;
+  }
+  delete obj.rawCallback;
+  return obj;
+}
+
 const createValidators = [
   body('purpose').isIn(Object.values(PAYMENT_PURPOSE)),
   body('orderId').optional().isMongoId(),
@@ -62,7 +71,7 @@ const sandboxConfirm = asyncHandler(async (req, res) => {
     rawCallback: req.body,
   });
 
-  return success(res, { payment }, 'Sandbox payment confirmed');
+  return success(res, { payment: sanitizePayment(payment) }, 'Sandbox payment confirmed');
 });
 
 const sandboxWebhook = asyncHandler(async (req, res) => {
@@ -78,7 +87,7 @@ const sandboxWebhook = asyncHandler(async (req, res) => {
     rawCallback: req.body,
   });
 
-  return success(res, { payment }, 'Webhook processed');
+  return success(res, { payment: sanitizePayment(payment) }, 'Webhook processed');
 });
 
 const getById = asyncHandler(async (req, res) => {
@@ -93,7 +102,11 @@ const getById = asyncHandler(async (req, res) => {
   const isStaff = [ROLES.ADMIN, ROLES.EMPLOYEE].includes(req.user.role);
   if (!isOwner && !isStaff) throw new ApiError(403, 'Forbidden');
 
-  return success(res, { payment });
+  return success(res, {
+    payment: sanitizePayment(payment, {
+      includeSandboxToken: isOwner && payment.status === 'pending',
+    }),
+  });
 });
 
 const myPayments = asyncHandler(async (req, res) => {
@@ -101,7 +114,7 @@ const myPayments = asyncHandler(async (req, res) => {
     .populate('order', 'orderCode status totalAmount')
     .populate('donation', 'type amount status')
     .sort({ createdAt: -1 });
-  return success(res, { payments });
+  return success(res, { payments: payments.map((p) => sanitizePayment(p)) });
 });
 
 const listAll = asyncHandler(async (req, res) => {
@@ -115,7 +128,7 @@ const listAll = asyncHandler(async (req, res) => {
     .populate('donation', 'type amount status')
     .sort({ createdAt: -1 });
 
-  return success(res, { payments });
+  return success(res, { payments: payments.map((p) => sanitizePayment(p)) });
 });
 
 module.exports = {

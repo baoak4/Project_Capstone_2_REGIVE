@@ -37,8 +37,8 @@ Marketplace / Phân phối hỗ trợ → Đơn hàng → Thanh toán → Báo c
 | 1 | Start-up & Foundation | 04/09 – 13/09/2026 | Kick-off, tài liệu, scaffold kỹ thuật | Đang / sắp xong |
 | 2 | Sprint 1 — Core Charity | 14/09 – 27/09/2026 | Auth, campaign, donation, volunteer, beneficiary | Đang triển khai (Backend Node.js) |
 | 3 | Sprint 2 — Commerce & Ops | 28/09 – 11/10/2026 | Product, warehouse, marketplace, order, payment, quản trị | Đang triển khai (Backend Node.js) |
-| 4 | Sprint 3 — AI & Integration | 12/10 – 25/10/2026 | AI đánh giá SP, tích hợp E2E, test, tinh chỉnh | Đang triển khai (Backend Node.js) |
-| 5 | Review & Final Release | 26/10 – 29/10/2026 | Retrospective, bàn giao, demo | Chưa bắt đầu |
+| 4 | Sprint 3 — AI & Integration | 12/10 – 25/10/2026 | AI đánh giá SP, tích hợp E2E, test, tinh chỉnh | Backend xong (FE chưa) |
+| 5 | Review & Final Release | 26/10 – 29/10/2026 | Retrospective, bàn giao, demo | Backend Final Release v1.0.0 |
 | 6 | Buffer / Hardening (tuỳ chọn) | 30/10 – 06/12/2026 | Fix bug, docs, deploy ổn định nếu còn thời gian đến End Date | Dự phòng |
 
 > **Lưu ý:** Proposal có lệch giữa End Date (06/12) và Final Release (29/10). Phase 6 dùng khoảng buffer này; không thêm feature mới trừ khi backlog còn item ưu tiên cao.
@@ -302,17 +302,20 @@ Không cho AI tự approve giá hoặc tự publish lên marketplace.
 **Mục tiêu:** Kết thúc phát triển theo Master Plan và bàn giao.
 
 ### Công việc
-- [ ] Project Retrospective Meeting (26–28/10)
-- [ ] Final testing checklist (role-based)
-- [ ] Chuẩn bị slide/demo script (10–15 phút)
-- [ ] Đóng gói source + docs trên GitHub
-- [ ] Final Release (29/10)
+- [ ] Project Retrospective Meeting (26–28/10) *(team meeting — ngoài code)*
+- [x] Final testing checklist (role-based) *(backend: `npm run test:regression`)*
+- [x] Chuẩn bị slide/demo script (10–15 phút) *(backend: `docs/DEMO_SCRIPT.md`)*
+- [x] Đóng gói source + docs backend *(v1.0.0 + `docs/DELIVERY.md`)*
+- [x] Final Release backend (29/10 target) — **API sẵn sàng bàn giao**
+- [ ] Frontend + GitHub push *(tuỳ team)*
 
 ### Gói bàn giao
-- Source code FE/BE
-- Tài liệu proposal / chức năng / plan phase / API
-- Tài khoản demo theo từng role
-- Danh sách hạn chế đã biết (known issues)
+- [x] Source code BE (`backend/`)
+- [ ] Source code FE
+- [x] Tài liệu proposal / chức năng / plan phase / API (`docs/openapi.yaml`)
+- [x] Tài khoản demo theo từng role
+- [x] Danh sách hạn chế đã biết (`docs/KNOWN_ISSUES.md`)
+- [x] RBAC matrix (`docs/RBAC.md`)
 
 ---
 

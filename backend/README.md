@@ -1,35 +1,24 @@
-# ReGive Backend (Sprint 1–3)
+# ReGive Backend v1.0.0 — Final Release
 
-Node.js + Express + MongoDB API cho ReGive.
+Node.js + Express + MongoDB API (Sprint 1–3 + Phase 5 hardening).
 
-- **Sprint 1:** Auth, Campaign, Donation, Volunteer, Beneficiary, Notification  
-- **Sprint 2:** Product, Warehouse/Inventory, Marketplace, Order, Payment sandbox, Reports  
-- **Sprint 3:** AI product assessment (human-in-the-loop), E2E integration
-
-## Stack
-
-- Node.js (JavaScript)
-- Express.js
-- MongoDB + Mongoose
-- JWT + bcryptjs
-- AI provider: `mock` (heuristic) — sẵn hook đổi sang API ngoài qua env
-
-## Cài đặt
+## Quick start
 
 ```bash
 cd backend
 cp .env.example .env
 npm install
 npm run seed
-npm run dev
+npm start
 ```
 
-API: `http://localhost:5000`
-
-Demo E2E (cần server đang chạy):
+- API: `http://localhost:5000`
+- Health: `GET /api/health`
+- Ready: `GET /api/ready`
 
 ```bash
 npm run demo:e2e
+npm run test:regression
 ```
 
 ## Tài khoản demo
@@ -41,48 +30,29 @@ npm run demo:e2e
 | USER | user@regive.local | User@123 |
 | BENEFICIARY | beneficiary@regive.local | Beneficiary@123 |
 
-Seed có:
-- Marketplace: **Balo học sinh second-hand**
-- AI draft: **Áo khoác denim second-hand**
+## Modules
 
-## Luồng demo Sprint 3 (AI)
+Sprint 1: Auth · Campaign · Donation · Volunteer · Support · Notification  
+Sprint 2: Product · Inventory · Marketplace · Order · Payment sandbox · Reports  
+Sprint 3: AI assess + human confirm (no auto-publish)  
+Phase 5: Helmet · rate-limit · ready probe · OpenAPI · regression · delivery docs
 
-```text
-Intake product (draft)
-  → POST /api/ai/assess-product        (AI gợi ý, KHÔNG áp dụng)
-  → POST /api/ai/assessments/:id/confirm  (Employee confirm/override → áp vào product)
-  → stock-in → publish → order → payment
-```
+## Docs
 
-**Quy tắc AI bắt buộc**
-- AI chỉ `suggested` — không tự set giá authoritative, không auto-publish marketplace  
-- Status: `suggested` → `confirmed` | `overridden` | `rejected` | `failed`  
-- AI lỗi → vẫn đánh giá thủ công `POST /api/products/:id/assess`
+- [`docs/DELIVERY.md`](docs/DELIVERY.md) — gói bàn giao
+- [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) — script demo mentor
+- [`docs/RBAC.md`](docs/RBAC.md) — phân quyền
+- [`docs/KNOWN_ISSUES.md`](docs/KNOWN_ISSUES.md) — hạn chế
+- [`docs/openapi.yaml`](docs/openapi.yaml) — OpenAPI 3
 
-## API Sprint 3 (AI)
-
-| Method | Path | Auth | Mô tả |
-|---|---|---|---|
-| POST | `/api/ai/assess-product` | Employee/Admin | Chạy AI, lưu suggestion |
-| GET | `/api/ai/pending` | Employee/Admin | Hàng chờ review |
-| GET | `/api/ai/products/:productId` | Employee/Admin | Lịch sử AI theo product |
-| GET | `/api/ai/assessments/:id` | Employee/Admin | Chi tiết assessment |
-| POST | `/api/ai/assessments/:id/confirm` | Employee/Admin | Confirm/override + apply product |
-| POST | `/api/ai/assessments/:id/reject` | Employee/Admin | Từ chối suggestion |
-
-## Env AI
+## Env
 
 ```text
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/regive
+JWT_SECRET=<strong-secret>
+CORS_ORIGIN=http://localhost:5173
 AI_PROVIDER=mock
-AI_API_KEY=
-```
-
-## Response format
-
-```json
-{
-  "success": true,
-  "message": "OK",
-  "data": {}
-}
+AUTH_RATE_LIMIT_MAX=50
+API_RATE_LIMIT_MAX=300
 ```
