@@ -1,8 +1,8 @@
 # ReGive — Kế hoạch xây dựng dự án theo Phase
 
-> **Mục đích:** Tài liệu hướng dẫn triển khai ReGive theo từng giai đoạn, dùng cho team và AI coding assistant.  
-> **Nguồn phạm vi:** `ReGive_Proposal_AI_Implementation`, `ReGive_ChucNang_VanDe_GiaiPhap_VI`.  
-> **Quy tắc:** Không mở rộng tính năng ngoài proposal trừ khi team quyết định bổ sung.  
+> **Mục đích:** Tài liệu hướng dẫn triển khai ReGive theo từng giai đoạn, dùng cho team và AI coding assistant.
+> **Nguồn phạm vi:** `ReGive_Proposal_AI_Implementation`, `ReGive_ChucNang_VanDe_GiaiPhap_VI`.
+> **Quy tắc:** Không mở rộng tính năng ngoài proposal trừ khi team quyết định bổ sung.
 > **Phiên bản:** 1.1 — 10/09/2026 (Backend đổi sang Node.js Express)
 
 ---
@@ -84,7 +84,7 @@ Marketplace / Phân phối hỗ trợ → Đơn hàng → Thanh toán → Báo c
 
 ## 4. Phase 1 — Start-up & Foundation
 
-**Thời gian:** 04/09 – 13/09/2026 (≈ 10 ngày)  
+**Thời gian:** 04/09 – 13/09/2026 (≈ 10 ngày)
 **Mục tiêu:** Chuẩn bị để Sprint 1 code được ngay, không tranh cãi kiến trúc giữa chừng.
 
 ### 4.1 Công việc tài liệu / quản lý
@@ -132,7 +132,7 @@ regive/
 
 ## 5. Phase 2 — Sprint 1: Core Charity Platform
 
-**Thời gian:** 14/09 – 27/09/2026 (14 ngày)  
+**Thời gian:** 14/09 – 27/09/2026 (14 ngày)
 **Sprint Goal:** Người dùng tìm chiến dịch, quyên góp, đăng ký tình nguyện; Beneficiary gửi yêu cầu hỗ trợ; Admin/Employee quản lý tối thiểu các luồng này.
 
 ### 5.1 Backend — User Stories / Task groups
@@ -192,7 +192,7 @@ regive/
 
 ## 6. Phase 3 — Sprint 2: Commerce, Warehouse & Management
 
-**Thời gian:** 28/09 – 11/10/2026 (14 ngày)  
+**Thời gian:** 28/09 – 11/10/2026 (14 ngày)
 **Sprint Goal:** Sản phẩm quyên góp vào kho, lên marketplace, mua hàng và thanh toán; vận hành kho/đơn hàng/báo cáo cơ bản.
 
 ### 6.1 Backend — Task groups
@@ -251,19 +251,19 @@ regive/
 
 ## 7. Phase 4 — Sprint 3: AI, Integration & Hardening
 
-**Thời gian:** 12/10 – 25/10/2026 (14 ngày)  
+**Thời gian:** 12/10 – 25/10/2026 (14 ngày)
 **Sprint Goal:** AI hỗ trợ đánh giá sản phẩm với human-in-the-loop; hệ thống chạy thông suốt end-to-end; sẵn sàng demo/bàn giao.
 
 ### 7.1 AI — Phạm vi đúng proposal
 
-AI nhận: ảnh sản phẩm + thông tin sản phẩm.  
+AI nhận: ảnh sản phẩm + thông tin sản phẩm.
 AI trả: classification, condition, quality, suggested price.
 
 **Bắt buộc:**
-1. Employee/Admin xem kết quả AI  
-2. Kiểm tra / chỉnh sửa  
-3. Xác nhận  
-4. Mới áp dụng vào product / listing  
+1. Employee/Admin xem kết quả AI
+2. Kiểm tra / chỉnh sửa
+3. Xác nhận
+4. Mới áp dụng vào product / listing
 
 Không cho AI tự approve giá hoặc tự publish lên marketplace.
 
@@ -298,7 +298,7 @@ Không cho AI tự approve giá hoặc tự publish lên marketplace.
 
 ## 8. Phase 5 — Review & Final Release
 
-**Thời gian:** 26/10 – 29/10/2026  
+**Thời gian:** 26/10 – 29/10/2026
 **Mục tiêu:** Kết thúc phát triển theo Master Plan và bàn giao.
 
 ### Công việc
@@ -324,17 +324,17 @@ Không cho AI tự approve giá hoặc tự publish lên marketplace.
 Chỉ làm nếu còn thời gian sau Final Release; **không phá phạm vi**.
 
 ### Ưu tiên
-1. Bugfix từ demo/mentor feedback  
-2. Ổn định deploy (hosting, backup MongoDB, env production)  
-3. Cải thiện báo cáo / notification  
-4. Performance ảnh sản phẩm, index MongoDB  
-5. Test tự động bổ sung  
+1. Bugfix từ demo/mentor feedback
+2. Ổn định deploy (hosting, backup MongoDB, env production)
+3. Cải thiện báo cáo / notification
+4. Performance ảnh sản phẩm, index MongoDB
+5. Test tự động bổ sung
 
 ### Không làm trong buffer (trừ khi team chốt mở rộng)
-- App mobile native  
-- Chat realtime phức tạp  
-- AI tự động publish  
-- Multi-warehouse nâng cao / logistics 3PL đầy đủ  
+- App mobile native
+- Chat realtime phức tạp
+- AI tự động publish
+- Multi-warehouse nâng cao / logistics 3PL đầy đủ
 
 ---
 
@@ -358,12 +358,12 @@ Chỉ làm nếu còn thời gian sau Final Release; **không phá phạm vi**.
 ## 11. Definition of Done chung (mọi phase)
 
 Một item được coi là xong khi:
-1. Code merge vào nhánh tích hợp  
-2. API/UI hoạt động đúng acceptance của story  
-3. Phân quyền đúng role  
-4. Dữ liệu nhạy cảm không lộ trái phép  
-5. Có cách demo được trong 2–3 phút  
-6. Cập nhật checklist / Postman nếu đổi contract  
+1. Code merge vào nhánh tích hợp
+2. API/UI hoạt động đúng acceptance của story
+3. Phân quyền đúng role
+4. Dữ liệu nhạy cảm không lộ trái phép
+5. Có cách demo được trong 2–3 phút
+6. Cập nhật checklist / Postman nếu đổi contract
 
 ---
 
@@ -384,12 +384,12 @@ Một item được coi là xong khi:
 
 Hệ thống ReGive đạt mức bàn giao khi demo được:
 
-1. **User** đăng nhập, xem campaign, quyên góp tiền/sản phẩm, đăng ký volunteer, mua SP second-hand, thanh toán, xem trạng thái.  
-2. **Beneficiary** gửi yêu cầu hỗ trợ, theo dõi, xác nhận đã nhận.  
-3. **Employee** tiếp nhận donation SP, đánh giá (có AI hỗ trợ), quản lý kho, xử lý order, điều phối volunteer, xử lý support request.  
-4. **Admin** quản lý user/role, campaign, donation, product/inventory, volunteer/employee, beneficiary, order, tài chính/báo cáo, notification, duyệt kết quả AI.  
-5. **AI** chỉ gợi ý; kết quả quan trọng phải có human confirm.  
-6. UI phù hợp thị trường Việt Nam (tiếng Việt, VND, ngày giờ địa phương).  
+1. **User** đăng nhập, xem campaign, quyên góp tiền/sản phẩm, đăng ký volunteer, mua SP second-hand, thanh toán, xem trạng thái.
+2. **Beneficiary** gửi yêu cầu hỗ trợ, theo dõi, xác nhận đã nhận.
+3. **Employee** tiếp nhận donation SP, đánh giá (có AI hỗ trợ), quản lý kho, xử lý order, điều phối volunteer, xử lý support request.
+4. **Admin** quản lý user/role, campaign, donation, product/inventory, volunteer/employee, beneficiary, order, tài chính/báo cáo, notification, duyệt kết quả AI.
+5. **AI** chỉ gợi ý; kết quả quan trọng phải có human confirm.
+6. UI phù hợp thị trường Việt Nam (tiếng Việt, VND, ngày giờ địa phương).
 
 ---
 
@@ -442,10 +442,10 @@ Hệ thống ReGive đạt mức bàn giao khi demo được:
 
 ## 17. Ghi chú cho AI implementer
 
-1. Implement đúng thứ tự Phase 1 → 2 → 3 → 4; không nhảy AI trước khi có product intake.  
-2. Mỗi PR/sprint chỉ hoàn thành module đã lên kế hoạch phase đó.  
-3. Khi proposal không chỉ rõ (schema, endpoint, gateway…), đề xuất tối giản rồi hỏi team — không tự bịa business rule lớn.  
-4. Luôn giữ human-in-the-loop cho AI.  
+1. Implement đúng thứ tự Phase 1 → 2 → 3 → 4; không nhảy AI trước khi có product intake.
+2. Mỗi PR/sprint chỉ hoàn thành module đã lên kế hoạch phase đó.
+3. Khi proposal không chỉ rõ (schema, endpoint, gateway…), đề xuất tối giản rồi hỏi team — không tự bịa business rule lớn.
+4. Luôn giữ human-in-the-loop cho AI.
 5. Ưu tiên demo được end-to-end hơn UI trang trí.
 
 ---
