@@ -30,11 +30,17 @@ export default function DashboardPage() {
         <StatCard label="Tồn kho thấp" value={summary.lowStock} hint={`${summary.listedProducts}/${summary.totalProducts} SP đang bán`} />
       </div>
 
-      <div className="mt-6 grid gap-4 xl:grid-cols-3">
-        <Card className="xl:col-span-1">
-          <h2 className="font-display mb-4 text-xl">Đơn gần đây</h2>
+      <div className="mt-6 space-y-4">
+        <Card>
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="font-display text-xl">Đơn gần đây</h2>
+            <Link className="text-sm text-moss hover:underline" to="/orders">
+              Xem tất cả
+            </Link>
+          </div>
           {recentOrders?.length ? (
             <Table
+              compact
               rowKey={(row) => oid(row)}
               rows={recentOrders}
               columns={[
@@ -54,13 +60,18 @@ export default function DashboardPage() {
                 },
                 {
                   key: 'status',
-                  header: 'TT',
+                  header: 'Trạng thái',
                   render: (row) => <Badge value={row.status} map={LABELS.order} />,
                 },
                 {
                   key: 'total',
                   header: 'Tổng',
                   render: (row) => formatVnd(row.totalAmount),
+                },
+                {
+                  key: 'at',
+                  header: 'Ngày',
+                  render: (row) => formatDate(row.createdAt),
                 },
               ]}
             />
@@ -70,13 +81,20 @@ export default function DashboardPage() {
         </Card>
 
         <Card>
-          <h2 className="font-display mb-4 text-xl">Thanh toán</h2>
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="font-display text-xl">Thanh toán</h2>
+            <Link className="text-sm text-moss hover:underline" to="/payments">
+              Xem tất cả
+            </Link>
+          </div>
           {recentPayments?.length ? (
             <Table
+              compact
               rowKey={(row) => oid(row)}
               rows={recentPayments}
               columns={[
                 { key: 'code', header: 'Mã', render: (row) => row.paymentCode },
+                { key: 'payer', header: 'Người trả', render: (row) => displayName(row.payer) },
                 { key: 'purpose', header: 'Loại', render: (row) => <Badge value={row.purpose} map={LABELS.purpose} /> },
                 { key: 'amount', header: 'Số tiền', render: (row) => formatVnd(row.amount) },
                 { key: 'at', header: 'Lúc', render: (row) => formatDate(row.paidAt) },
@@ -88,15 +106,23 @@ export default function DashboardPage() {
         </Card>
 
         <Card>
-          <h2 className="font-display mb-4 text-xl">Kho gần đây</h2>
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="font-display text-xl">Kho gần đây</h2>
+            <Link className="text-sm text-moss hover:underline" to="/inventory">
+              Xem tất cả
+            </Link>
+          </div>
           {recentStockMoves?.length ? (
             <Table
+              compact
               rowKey={(row) => oid(row)}
               rows={recentStockMoves}
               columns={[
-                { key: 'product', header: 'SP', render: (row) => row.product?.name || '—' },
+                { key: 'product', header: 'Sản phẩm', render: (row) => row.product?.name || '—' },
                 { key: 'type', header: 'Loại', render: (row) => <Badge value={row.type} map={LABELS.inventory} /> },
-                { key: 'qty', header: 'SL', render: (row) => `${row.previousStock} → ${row.newStock}` },
+                { key: 'qty', header: 'Thay đổi', render: (row) => `${row.previousStock} → ${row.newStock}` },
+                { key: 'reason', header: 'Lý do', render: (row) => row.reason || '—' },
+                { key: 'at', header: 'Lúc', render: (row) => formatDate(row.createdAt) },
               ]}
             />
           ) : (

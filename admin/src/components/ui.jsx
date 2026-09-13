@@ -140,10 +140,10 @@ export function ErrorBox({ error }) {
   );
 }
 
-export function Table({ columns, rows, rowKey }) {
+export function Table({ columns, rows, rowKey, compact }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[640px] text-left text-sm">
+      <table className={classNames('w-full text-left text-sm', compact ? '' : 'min-w-[640px]')}>
         <thead>
           <tr className="border-b border-forest/10 text-xs tracking-wide text-ink/50 uppercase">
             {columns.map((col) => (
